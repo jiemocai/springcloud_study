@@ -1,0 +1,30 @@
+server:
+  port: 8001
+
+spring:
+  application:
+    name: cloud-payment-service      #注册到eureka中的微服务名称，一般不要轻易变更
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource            # 当前数据源操作类型
+    driver-class-name: com.mysql.cj.jdbc.Driver            # mysql驱动包  ?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://192.168.2.125:3306/db2020?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: root
+
+eureka:
+  client:
+    register-with-eureka: true   #表示是否将自己(服务提供者，具体业务的微服务)注册进 EurekaServer 中，默认true
+    fetch-registry: true    #是否从EurekaServer抓取已有的注册信息，默认true。单节点无所谓，集群必须是true,才能配合ribbon完成负载均衡
+    service-url:
+      # defaultZone: http://localhost:7001/eureka
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
+  instance:
+    prefer-ip-address: true  #公布服务的IP地址而不是主机名
+    instance-id: payment8001 #服务的别名
+
+    #lease-renewal-interval-in-seconds: 1 # eureka 客户端向服务端发送心跳的时间间隔，单位秒（默认 30 s） （例如， 30天交一次房租）
+    #lease-expiration-duration-in-seconds: 2 #eureka 服务端在收到最后一次心跳等待时间上限，单位是秒（默认 90s）,超时将被移除 （三次没交费，移除）
+
+mybatis:
+  mapperLocations: classpath:mapper/*.xml    #扫描mapper文件目录
+  type-aliases-package: com.atguigu.springcloud.entities    # 所有Entity别名类所在包
