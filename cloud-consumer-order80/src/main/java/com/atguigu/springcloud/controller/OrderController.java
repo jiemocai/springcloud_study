@@ -24,7 +24,7 @@ public class OrderController {
 
     //集群版，会根据euraka中注册的服务去执行，与域名和端口无关，
     // 要注意负载均衡的策略， @LoadBalanced
-    public static final String PAYMENT_URL = "http://CLOUD-PROVIDER-PAYMENT";
+    public static final String PAYMENT_URL = "http://CLOUD-PAYMENT-SERVICE";
 
 
     @Resource
